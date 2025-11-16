@@ -5,7 +5,7 @@
 <%
     String id = request.getParameter("id");
     if (id == null) id = "1";
-    // 실제 DB는 없으므로 예시 데이터 한 세트만 표시
+    // 실제 DB는 없어서 예시 데이터 한 세트만 사용
 %>
 <html>
 <head>
@@ -24,6 +24,7 @@
             <p><strong>Phone:</strong> 010-1111-2222</p>
             <p><strong>Email:</strong> reynie@benedict.org</p>
             <p><strong>Birthday:</strong> 2005-03-15</p>
+            <p><strong>Age:</strong> 20</p>
         </div>
     </div>
 

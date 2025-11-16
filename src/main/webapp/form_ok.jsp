@@ -1,12 +1,11 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
     request.setCharacterEncoding("UTF-8");
     String name = request.getParameter("name");
     String email = request.getParameter("email");
-    String message = request.getParameter("message");
+    String title = request.getParameter("title");
+    String phone = request.getParameter("phone");
+    String age = request.getParameter("age");
 %>
 <html>
 <head>
@@ -23,8 +22,9 @@
         <div class="card-body">
             <p><strong>Name:</strong> <%= name %></p>
             <p><strong>Email:</strong> <%= email %></p>
-            <p><strong>Message:</strong></p>
-            <div class="border p-3"><%= message %></div>
+            <p><strong>Title:</strong> <%= title %></p>
+            <p><strong>Phone:</strong> <%= phone %></p>
+            <p><strong>Age:</strong> <%= age %></p>
         </div>
     </div>
 

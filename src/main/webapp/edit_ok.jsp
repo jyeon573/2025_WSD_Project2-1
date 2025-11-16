@@ -9,6 +9,7 @@
     String phone = request.getParameter("phone");
     String email = request.getParameter("email");
     String birthday = request.getParameter("birthday");
+    String age = request.getParameter("age");
 %>
 <html>
 <head>
@@ -28,6 +29,7 @@
             <p><strong>Phone:</strong> <%= phone %></p>
             <p><strong>Email:</strong> <%= email %></p>
             <p><strong>Birthday:</strong> <%= birthday %></p>
+            <p><strong>Age:</strong> <%= age %></p>
         </div>
     </div>
 
