@@ -1,12 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <html>
-<head>
-  <title>JSP - Hello World</title>
-</head>
 <body>
-<h1><%= "Hello World!" %></h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h2>Welcome Project2-1</h2>
+<h4>JSP Project for CRUD without Database</h4>
+<p><a href="form.html">Form test</a></p>
+<p><a href="list.jsp">Board list</a></p>
 </body>
 </html>
