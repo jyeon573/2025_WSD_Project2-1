@@ -1,16 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jungdayeon
-  Date: 11/16/25
-  Time: 20:24
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%
+    request.setCharacterEncoding("UTF-8");
+    String id = request.getParameter("id");
+    String title = request.getParameter("title");
+    String writer = request.getParameter("writer");
+    String content = request.getParameter("content");
+%>
 <html>
-<head>
-    <title>Title</title>
-</head>
 <body>
-
+<h2>Edit result</h2>
+<p>Id: <%= id %></p>
+<p>Title: <%= title %></p>
+<p>Writer: <%= writer %></p>
+<p>Content:</p>
+<pre><%= content %></pre>
+<p><a href="list.jsp">Back to list</a></p>
 </body>
 </html>
