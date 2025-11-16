@@ -90,5 +90,6 @@
 </table>
 
 <p><a href="write.jsp">Write new post</a></p>
+<p><a href="index.jsp">Home</a></p>
 </body>
 </html>
