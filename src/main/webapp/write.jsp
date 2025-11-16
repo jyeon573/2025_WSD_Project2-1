@@ -35,6 +35,11 @@
             <input type="date" name="birthday" class="form-control" required>
         </div>
 
+        <div class="col-md-6">
+            <label class="form-label">Age</label>
+            <input type="number" name="age" class="form-control" required>
+        </div>
+
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="list.jsp" class="btn btn-secondary">Back to List</a>

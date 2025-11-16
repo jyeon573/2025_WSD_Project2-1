@@ -26,6 +26,7 @@
             <th>Phone</th>
             <th>Email</th>
             <th>Birthday</th>
+            <th>Age</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -37,6 +38,7 @@
             <td>010-1111-2222</td>
             <td>reynie@benedict.org</td>
             <td>2005-03-15</td>
+            <td>20</td>
             <td>
                 <a href="edit.jsp?id=1" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=1" class="btn btn-sm btn-danger">Delete</a>
@@ -49,6 +51,7 @@
             <td>010-5555-6666</td>
             <td>kate@benedict.org</td>
             <td>2004-11-05</td>
+            <td>21</td>
             <td>
                 <a href="edit.jsp?id=2" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=2" class="btn btn-sm btn-danger">Delete</a>
@@ -61,6 +64,7 @@
             <td>010-7777-8888</td>
             <td>constance@benedict.org</td>
             <td>2016-01-30</td>
+            <td>9</td>
             <td>
                 <a href="edit.jsp?id=3" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=3" class="btn btn-sm btn-danger">Delete</a>
@@ -73,6 +77,7 @@
             <td>010-9999-0000</td>
             <td>benedict@benedict.org</td>
             <td>1969-06-09</td>
+            <td>56</td>
             <td>
                 <a href="edit.jsp?id=4" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=4" class="btn btn-sm btn-danger">Delete</a>
@@ -85,6 +90,7 @@
             <td>010-1212-3434</td>
             <td>numbertwo@benedict.org</td>
             <td>1970-04-18</td>
+            <td>55</td>
             <td>
                 <a href="edit.jsp?id=5" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=5" class="btn btn-sm btn-danger">Delete</a>
@@ -97,6 +103,7 @@
             <td>010-5656-7878</td>
             <td>rhonda@benedict.org</td>
             <td>1988-09-12</td>
+            <td>37</td>
             <td>
                 <a href="edit.jsp?id=6" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=6" class="btn btn-sm btn-danger">Delete</a>
@@ -109,11 +116,13 @@
             <td>010-9090-1010</td>
             <td>milligan@benedict.org</td>
             <td>1988-12-25</td>
+            <td>36</td>
             <td>
                 <a href="edit.jsp?id=7" class="btn btn-sm btn-warning">Edit</a>
                 <a href="delete_ok.jsp?id=7" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
+
         </tbody>
     </table>
 
