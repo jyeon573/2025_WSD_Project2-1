@@ -14,6 +14,20 @@
 
     <h2 class="mb-4">Board List</h2>
 
+    <form method="get" action="list.jsp" class="row g-2 mb-3">
+        <div class="col-auto">
+            <input type="text" name="keyword" class="form-control"
+                   placeholder="Search by title or content"
+                   value="<%= request.getParameter("keyword") == null ? "" : request.getParameter("keyword") %>">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+        </div>
+        <div class="col-auto">
+            <a href="list.jsp" class="btn btn-outline-secondary">Reset</a>
+        </div>
+    </form>
+
     <div class="mb-3">
         <a href="write.jsp" class="btn btn-primary">Write New Post</a>
         <a href="index.jsp" class="btn btn-secondary">Home</a>
