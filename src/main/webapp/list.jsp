@@ -62,7 +62,7 @@
         <tr>
             <td><%= vo.getId() %>
             </td>
-            <td><%= vo.getTitle() %>
+            <td><a href="view.jsp?id=<%= vo.getId() %>"><%= vo.getTitle() %></a></td>
             </td>
             <td><%= vo.getWriter() %>
             </td>
