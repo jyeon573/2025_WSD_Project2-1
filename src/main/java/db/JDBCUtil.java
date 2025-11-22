@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class JDBCUtil {
 
-    // 로컬 MariaDB 접속 정보
-    private static final String URL = "jdbc:mariadb://localhost:3306/wsd_proj2";
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234"; // MyMariaDB 컨테이너 만들 때 쓴 비번 넣기!
+    // Walab MariaDB 접속 정보
+    private static final String URL = "jdbc:mariadb://walab.handong.edu:3306/W25_22400661";
+    private static final String USER = "W25_22400661";
+    private static final String PASSWORD = "zah0Pi";
 
     // DB 연결 메서드
     public static Connection getConnection() {
