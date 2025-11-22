@@ -36,4 +36,40 @@ public class BoardDAO {
         return list;
     }
 
+    // 글 추가 (INSERT)
+    public int insertBoard(BoardVO vo) {
+        String sql = "INSERT INTO board (title, writer, content) VALUES (?, ?, ?)";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, vo.getTitle());
+            pstmt.setString(2, vo.getWriter());
+            pstmt.setString(3, vo.getContent());
+
+            return pstmt.executeUpdate();  // 1이 리턴되면 성공
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0; // 실패
+    }
+
+    // 글 삭제 (DELETE)
+    public int deleteBoard(int id) {
+        String sql = "DELETE FROM board WHERE id = ?";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            return pstmt.executeUpdate();  // 1이 리턴되면 성공
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
