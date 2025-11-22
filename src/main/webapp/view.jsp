@@ -2,6 +2,19 @@
 <%@ page import="board.BoardVO" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<%
+    String idStr = request.getParameter("id");
+    int id = 0;
+    try {
+        id = Integer.parseInt(idStr);
+    } catch (Exception e) {
+        id = 0;
+    }
+
+    BoardDAO dao = new BoardDAO();
+    BoardVO vo = dao.getBoardById(id);
+%>
+
 <jsp:include page="header.jsp"/>
 
 <h2 class="mb-4">View Post</h2>
@@ -45,4 +58,6 @@
     }
 %>
 
-<jsp:include page="footer.jsp"/>
+</div>
+</body>
+</html>
