@@ -72,4 +72,37 @@ public class BoardDAO {
         return 0;
     }
 
+    // 검색 메소드
+    public List<BoardVO> searchBoard(String keyword) {
+        List<BoardVO> list = new ArrayList<>();
+        String sql = "SELECT id, title, writer, content, regdate, hit " +
+                "FROM board " +
+                "WHERE title LIKE ? OR content LIKE ? " +
+                "ORDER BY id DESC";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            String like = "%" + keyword + "%";
+            pstmt.setString(1, like);
+            pstmt.setString(2, like);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    BoardVO vo = new BoardVO();
+                    vo.setId(rs.getInt("id"));
+                    vo.setTitle(rs.getString("title"));
+                    vo.setWriter(rs.getString("writer"));
+                    vo.setContent(rs.getString("content"));
+                    vo.setRegdate(rs.getTimestamp("regdate"));
+                    vo.setHit(rs.getInt("hit"));
+                    list.add(vo);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }
