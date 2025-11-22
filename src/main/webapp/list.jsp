@@ -48,16 +48,28 @@
         <tbody>
         <%
             BoardDAO dao = new BoardDAO();
-            List<BoardVO> list = dao.getBoardList();
+            String keyword = request.getParameter("keyword");
+            List<BoardVO> list;
+
+            if (keyword != null && !keyword.trim().equals("")) {
+                list = dao.searchBoard(keyword.trim());
+            } else {
+                list = dao.getBoardList();
+            }
 
             for (BoardVO vo : list) {
         %>
         <tr>
-            <td><%= vo.getId() %></td>
-            <td><%= vo.getTitle() %></td>
-            <td><%= vo.getWriter() %></td>
-            <td><%= vo.getRegdate() %></td>
-            <td><%= vo.getHit() %></td>
+            <td><%= vo.getId() %>
+            </td>
+            <td><%= vo.getTitle() %>
+            </td>
+            <td><%= vo.getWriter() %>
+            </td>
+            <td><%= vo.getRegdate() %>
+            </td>
+            <td><%= vo.getHit() %>
+            </td>
             <td>
                 <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-sm btn-danger">Delete</a>
             </td>
