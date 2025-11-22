@@ -1,14 +1,20 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="board.BoardVO" %>
+<%@ page import="board.BoardDAO" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%
     request.setCharacterEncoding("UTF-8");
-    String name = request.getParameter("name");
-    String phone = request.getParameter("phone");
-    String email = request.getParameter("email");
-    String birthday = request.getParameter("birthday");
-    String age = request.getParameter("age");
+
+    String title = request.getParameter("title");
+    String writer = request.getParameter("writer");
+    String content = request.getParameter("content");
+
+    BoardVO vo = new BoardVO();
+    vo.setTitle(title);
+    vo.setWriter(writer);
+    vo.setContent(content);
+
+    BoardDAO dao = new BoardDAO();
+    int result = dao.insertBoard(vo);   // 성공하면 1
 %>
 <html>
 <head>
@@ -21,19 +27,19 @@
 
     <h2 class="mb-4">Write Result</h2>
 
-    <div class="card">
-        <div class="card-body">
-            <p><strong>Name:</strong> <%= name %></p>
-            <p><strong>Phone:</strong> <%= phone %></p>
-            <p><strong>Email:</strong> <%= email %></p>
-            <p><strong>Birthday:</strong> <%= birthday %></p>
-            <p><strong>Age:</strong> <%= age %></p>
-        </div>
-    </div>
+    <%
+        if (result == 1) {
+    %>
+    <div class="alert alert-success">The post has been added successfully.</div>
+    <%
+    } else {
+    %>
+    <div class="alert alert-danger">Failed to save the post.</div>
+    <%
+        }
+    %>
 
-    <div class="mt-3">
-        <a href="list.jsp" class="btn btn-secondary">Back to List</a>
-    </div>
+    <a href="list.jsp" class="btn btn-secondary mt-3">Back to List</a>
 
 </div>
 </body>
