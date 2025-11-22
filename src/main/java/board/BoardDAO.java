@@ -105,4 +105,32 @@ public class BoardDAO {
         return list;
     }
 
+    // 한 게시글 조회 메서드
+    public BoardVO getBoardById(int id) {
+        BoardVO vo = null;
+        String sql = "SELECT id, title, writer, content, regdate, hit FROM board WHERE id = ?";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    vo = new BoardVO();
+                    vo.setId(rs.getInt("id"));
+                    vo.setTitle(rs.getString("title"));
+                    vo.setWriter(rs.getString("writer"));
+                    vo.setContent(rs.getString("content"));
+                    vo.setRegdate(rs.getTimestamp("regdate"));
+                    vo.setHit(rs.getInt("hit"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vo;
+    }
+
 }
