@@ -1,10 +1,11 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<%@ page import="board.BoardDAO" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
-    String id = request.getParameter("id");
-    if (id == null) id = "1";
+    String idStr = request.getParameter("id");
+    int id = Integer.parseInt(idStr);
+
+    BoardDAO dao = new BoardDAO();
+    int result = dao.deleteBoard(id);
 %>
 <html>
 <head>
@@ -17,9 +18,17 @@
 
     <h2 class="mb-4">Delete Result</h2>
 
-    <div class="alert alert-danger" role="alert">
-        Contact with id <strong><%= id %></strong> has been deleted (mock).
-    </div>
+    <%
+        if (result == 1) {
+    %>
+    <div class="alert alert-success">Post <strong><%= id %></strong> has been deleted.</div>
+    <%
+    } else {
+    %>
+    <div class="alert alert-danger">Delete failed.</div>
+    <%
+        }
+    %>
 
     <a href="list.jsp" class="btn btn-secondary">Back to List</a>
 
