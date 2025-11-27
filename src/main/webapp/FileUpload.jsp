@@ -1,16 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jungdayeon
-  Date: 11/27/25
-  Time: 10:38
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%
+    String filename = "";
+    int sizeLimit = 15 * 1024 * 1024;
 
-</body>
-</html>
+    String realPath = request.getServletContext().getRealPath("upload");
+    System.out.println(realPath);
+
+    File dir = new File(realPath);
+    if (!dir.exists()) dir.mkdirs();
+
+    MultipartRequest multpartRequest = null;
+    multpartRequest = new MultipartRequest(request, realPath,
+            sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+
+    filename = multpartRequest.getFilesystemName("photo");
+    if(filename != ""){
+        out.print("<img src='./upload/" + filename + "' height=400>");
+    }
+%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.io.File"%>
+<%@ page import="com.oreilly.servlet.*"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
