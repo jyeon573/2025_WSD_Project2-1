@@ -1,16 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jungdayeon
-  Date: 11/27/25
-  Time: 10:12
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<!-- fileform.jsp -->
+<%@ page contentType="text/html; charset=UTF-8" %>
 
-</body>
-</html>
+<h2>파일 업로드</h2>
+
+<!-- 반드시 enctype="multipart/form-data" 필요 -->
+<form action="fileupload.jsp" method="post" enctype="multipart/form-data">
+    제목: <input type="text" name="title"><br><br>
+
+    업로드 파일: <input type="file" name="photo"><br><br>
+
+    <input type="submit" value="업로드">
+</form>
