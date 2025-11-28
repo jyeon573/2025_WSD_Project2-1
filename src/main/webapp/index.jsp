@@ -12,6 +12,8 @@
 
     <h1 class="mb-4">JSP Project - Contact CRUD Frontend</h1>
 
+    <a href="FileForm.jsp">파일 업로드 페이지로 이동</a>
+
     <div class="list-group">
         <a href="form.html" class="list-group-item list-group-item-action">
             Form test (form.html → form_ok.jsp)
