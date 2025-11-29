@@ -7,11 +7,13 @@
     String title = request.getParameter("title");
     String writer = request.getParameter("writer");
     String content = request.getParameter("content");
+    String fileName = request.getParameter("fileName");   // ⬅ 추가
 
     BoardVO vo = new BoardVO();
     vo.setTitle(title);
     vo.setWriter(writer);
     vo.setContent(content);
+    vo.setFileName(fileName);                             // ⬅ 추가
 
     BoardDAO dao = new BoardDAO();
     int result = dao.insertBoard(vo);   // 성공하면 1
