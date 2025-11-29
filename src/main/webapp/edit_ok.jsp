@@ -9,6 +9,7 @@
     String title = request.getParameter("title");
     String writer = request.getParameter("writer");
     String content = request.getParameter("content");
+    String fileName = request.getParameter("fileName");   // ⬅ 추가
 
     int id = 0;
     try {
@@ -22,6 +23,7 @@
     vo.setTitle(title);
     vo.setWriter(writer);
     vo.setContent(content);
+    vo.setFileName(fileName);                            // ⬅ 추가
 
     BoardDAO dao = new BoardDAO();
     int result = dao.updateBoard(vo);   // 성공하면 1 리턴한다고 가정
