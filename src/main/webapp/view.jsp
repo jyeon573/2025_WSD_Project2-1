@@ -38,11 +38,14 @@
         <p><strong>Writer:</strong> <%= vo.getWriter() %></p>
         <p><strong>Date:</strong> <%= vo.getRegdate() %></p>
         <p><strong>Hit:</strong> <%= vo.getHit() %></p>
+
         <%
             String fileName = vo.getFileName();
             if (fileName != null && !fileName.isEmpty()) {
         %>
-        <p><strong>File:</strong> <%= fileName %></p>
+        <p><strong>File:</strong>
+            <a href="upload/<%= fileName %>" download><%= fileName %></a>
+        </p>
         <%
             }
         %>
