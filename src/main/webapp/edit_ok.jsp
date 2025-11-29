@@ -1,62 +1,91 @@
 <%@ page import="board.BoardVO" %>
 <%@ page import="board.BoardDAO" %>
+<%@ page import="java.io.File" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
+<jsp:include page="header.jsp"/>
 
 <%
     request.setCharacterEncoding("UTF-8");
 
-    String idStr = request.getParameter("id");
-    String title = request.getParameter("title");
-    String writer = request.getParameter("writer");
-    String content = request.getParameter("content");
-    String fileName = request.getParameter("fileName");   // ⬅ 추가
+    String uploadPath = request.getServletContext().getRealPath("upload");
+    int sizeLimit = 10 * 1024 * 1024;
 
+    MultipartRequest multi = null;
+    int result = 0;
     int id = 0;
+
     try {
-        id = Integer.parseInt(idStr);
-    } catch (Exception e) {
-        id = 0;
-    }
+        multi = new MultipartRequest(
+                request,
+                uploadPath,
+                sizeLimit,
+                "UTF-8",
+                new DefaultFileRenamePolicy()
+        );
 
-    BoardVO vo = new BoardVO();
-    vo.setId(id);
-    vo.setTitle(title);
-    vo.setWriter(writer);
-    vo.setContent(content);
-    vo.setFileName(fileName);                            // ⬅ 추가
+        String idStr = multi.getParameter("id");
+        String title = multi.getParameter("title");
+        String writer = multi.getParameter("writer");
+        String content = multi.getParameter("content");
 
-    BoardDAO dao = new BoardDAO();
-    int result = dao.updateBoard(vo);   // 성공하면 1 리턴한다고 가정
-%>
-<html>
-<head>
-    <title>Edit Result</title>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+        String oldFileName = multi.getParameter("oldFileName");      // 기존 파일 이름
+        String newFileName = multi.getFilesystemName("uploadFile");  // 새로 업로드한 파일 이름
 
-<body class="p-4">
-<div class="container">
-
-    <h2 class="mb-4">Edit Result</h2>
-
-    <%
-        if (result == 1) {
-    %>
-    <div class="alert alert-success">The post has been updated successfully.</div>
-    <%
-    } else {
-    %>
-    <div class="alert alert-danger">Failed to update the post.</div>
-    <%
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (Exception e) {
+            id = 0;
         }
-    %>
 
-    <div class="mt-3">
-        <a href="view.jsp?id=<%= id %>" class="btn btn-primary">Back to Post</a>
-        <a href="list.jsp" class="btn btn-secondary">Back to List</a>
-    </div>
+        // 새 파일이 올라왔으면 기존 파일 삭제
+        if (newFileName != null && !newFileName.isEmpty()) {
+            if (oldFileName != null && !oldFileName.isEmpty()) {
+                File oldFile = new File(uploadPath, oldFileName);
+                if (oldFile.exists()) oldFile.delete();
+            }
+        }
 
+        // 최종 fileName (새 파일 있으면 새 파일, 없으면 기존 파일 유지)
+        String finalFileName = (newFileName != null && !newFileName.isEmpty())
+                ? newFileName
+                : (oldFileName == null || oldFileName.isEmpty() ? null : oldFileName);
+
+        BoardVO vo = new BoardVO();
+        vo.setId(id);
+        vo.setTitle(title);
+        vo.setWriter(writer);
+        vo.setContent(content);
+        vo.setFileName(finalFileName);
+
+        BoardDAO dao = new BoardDAO();
+        result = dao.updateBoard(vo);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        result = 0;
+    }
+%>
+
+<h2 class="mb-4">Edit Result</h2>
+
+<%
+    if (result == 1) {
+%>
+<div class="alert alert-success">The post has been updated successfully.</div>
+<%
+} else {
+%>
+<div class="alert alert-danger">Failed to update the post.</div>
+<%
+    }
+%>
+
+<div class="mt-3">
+    <a href="view.jsp?id=<%= id %>" class="btn btn-primary">Back to Post</a>
+    <a href="list.jsp" class="btn btn-secondary">Back to List</a>
 </div>
-</body>
-</html>
+
+<jsp:include page="footer.jsp"/>
