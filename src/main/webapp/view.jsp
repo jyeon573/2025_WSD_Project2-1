@@ -9,9 +9,7 @@
     int id = 0;
     try {
         id = Integer.parseInt(idStr);
-    } catch (Exception e) {
-        id = 0;
-    }
+    } catch (Exception e) { id = 0; }
 
     BoardDAO dao = new BoardDAO();
     BoardVO vo = dao.getBoardById(id);
@@ -44,8 +42,15 @@
             if (fileName != null && !fileName.isEmpty()) {
         %>
         <p><strong>File:</strong>
-            <a href="upload/<%= fileName %>" download><%= fileName %></a>
+            <a href="<%= request.getContextPath() %>/upload/<%= fileName %>" download>
+                <%= fileName %>
+            </a>
         </p>
+
+        <!-- 이미지인 경우 미리보기 -->
+        <img src="<%= request.getContextPath() %>/upload/<%= fileName %>"
+             alt="attachment"
+             class="img-fluid mt-2">
         <%
             }
         %>

@@ -9,9 +9,7 @@
     int id = 0;
     try {
         id = Integer.parseInt(idStr);
-    } catch (Exception e) {
-        id = 0;
-    }
+    } catch (Exception e) { id = 0; }
 
     BoardDAO dao = new BoardDAO();
     BoardVO vo = dao.getBoardById(id);
@@ -30,9 +28,11 @@
 } else {
     String currentFile = vo.getFileName();
 %>
+
 <form action="edit_ok.jsp" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<%= vo.getId() %>">
-    <input type="hidden" name="oldFileName" value="<%= currentFile == null ? "" : currentFile %>">
+    <input type="hidden" name="oldFileName"
+           value="<%= currentFile == null ? "" : currentFile %>">
 
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -59,7 +59,9 @@
         <%
             if (currentFile != null && !currentFile.isEmpty()) {
         %>
-        <a href="upload/<%= currentFile %>" download><%= currentFile %></a>
+        <a href="<%= request.getContextPath() %>/upload/<%= currentFile %>" download>
+            <%= currentFile %>
+        </a>
         <%
         } else {
         %>
@@ -70,13 +72,14 @@
     </div>
 
     <div class="mb-3">
-        <label for="fileName" class="form-label">New file (optional)</label>
-        <input type="file" id="fileName" name="uploadFile" class="form-control">
+        <label for="photo" class="form-label">New file (optional)</label>
+        <input type="file" id="photo" name="photo" class="form-control">
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
     <a href="view.jsp?id=<%= vo.getId() %>" class="btn btn-secondary">Cancel</a>
 </form>
+
 <%
     }
 %>

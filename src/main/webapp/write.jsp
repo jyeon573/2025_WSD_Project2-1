@@ -4,7 +4,8 @@
 
 <h2 class="mb-4">Write New Post</h2>
 
-<form action="write_ok.jsp" method="post" enctype="multipart/form-data" class="row g-3">
+<form action="write_ok.jsp" method="post"
+      enctype="multipart/form-data" class="row g-3">
 
     <div class="col-md-6">
         <label class="form-label">Title</label>
@@ -23,7 +24,8 @@
 
     <div class="col-12">
         <label class="form-label">Attachment</label>
-        <input type="file" name="uploadFile" class="form-control">
+        <!-- FileUpload용 input name -->
+        <input type="file" name="photo" class="form-control">
     </div>
 
     <div class="col-12">

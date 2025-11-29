@@ -1,7 +1,7 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="board.BoardDAO" %>
 <%@ page import="board.BoardVO" %>
-<%@ page import="java.io.File" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="file.FileUpload" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -10,9 +10,7 @@
     int id = 0;
     try {
         id = Integer.parseInt(idStr);
-    } catch (Exception e) {
-        id = 0;
-    }
+    } catch (Exception e) { id = 0; }
 
     BoardDAO dao = new BoardDAO();
     BoardVO vo = dao.getBoardById(id);
@@ -23,14 +21,9 @@
     }
 
     // 파일 삭제
-    if (fileName != null && !fileName.isEmpty()) {
-        String uploadPath = request.getServletContext().getRealPath("upload");
-        File file = new File(uploadPath, fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-    }
+    FileUpload.deleteFile(request, "upload", fileName);
 
+    // 게시글 삭제
     int result = dao.deleteBoard(id);
 %>
 

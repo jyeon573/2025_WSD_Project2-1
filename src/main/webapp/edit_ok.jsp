@@ -1,57 +1,46 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="board.BoardVO" %>
 <%@ page import="board.BoardDAO" %>
-<%@ page import="java.io.File" %>
+<%@ page import="file.FileUpload" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
-<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 
 <jsp:include page="header.jsp"/>
 
 <%
     request.setCharacterEncoding("UTF-8");
 
-    String uploadPath = request.getServletContext().getRealPath("upload");
-    int sizeLimit = 10 * 1024 * 1024;
-
-    MultipartRequest multi = null;
+    int sizeLimit = 15 * 1024 * 1024;
     int result = 0;
     int id = 0;
 
     try {
-        multi = new MultipartRequest(
-                request,
-                uploadPath,
-                sizeLimit,
-                "UTF-8",
-                new DefaultFileRenamePolicy()
-        );
+        MultipartRequest multi = FileUpload.upload(request, "upload", sizeLimit);
 
         String idStr = multi.getParameter("id");
         String title = multi.getParameter("title");
         String writer = multi.getParameter("writer");
         String content = multi.getParameter("content");
 
-        String oldFileName = multi.getParameter("oldFileName");      // 기존 파일 이름
-        String newFileName = multi.getFilesystemName("uploadFile");  // 새로 업로드한 파일 이름
+        String oldFileName = multi.getParameter("oldFileName");
+        String newFileName = multi.getFilesystemName("photo"); // 새로 올린 파일
 
         try {
             id = Integer.parseInt(idStr);
-        } catch (Exception e) {
-            id = 0;
-        }
+        } catch (Exception e) { id = 0; }
 
-        // 새 파일이 올라왔으면 기존 파일 삭제
+        // 최종 fileName 결정
+        String finalFileName = null;
+
         if (newFileName != null && !newFileName.isEmpty()) {
+            // 새 파일 올라왔으면 예전 파일 삭제
+            FileUpload.deleteFile(request, "upload", oldFileName);
+            finalFileName = newFileName;
+        } else {
+            // 새 파일 없으면 기존 것 유지
             if (oldFileName != null && !oldFileName.isEmpty()) {
-                File oldFile = new File(uploadPath, oldFileName);
-                if (oldFile.exists()) oldFile.delete();
+                finalFileName = oldFileName;
             }
         }
-
-        // 최종 fileName (새 파일 있으면 새 파일, 없으면 기존 파일 유지)
-        String finalFileName = (newFileName != null && !newFileName.isEmpty())
-                ? newFileName
-                : (oldFileName == null || oldFileName.isEmpty() ? null : oldFileName);
 
         BoardVO vo = new BoardVO();
         vo.setId(id);

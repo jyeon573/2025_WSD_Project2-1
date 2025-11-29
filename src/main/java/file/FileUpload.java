@@ -5,37 +5,43 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 
 public class FileUpload {
 
-    public static String upload(HttpServletRequest request, String folder) throws Exception {
+    // 업로드 처리 (MultipartRequest 생성 + 업로드 폴더 준비)
+    public static MultipartRequest upload(HttpServletRequest request,
+                                          String folder,
+                                          int sizeLimit) throws IOException {
 
         String uploadPath = request.getServletContext().getRealPath(folder);
-        int sizeLimit = 15 * 1024 * 1024;
 
         File dir = new File(uploadPath);
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
 
-        MultipartRequest multi = new MultipartRequest(
+        return new MultipartRequest(
                 request,
                 uploadPath,
                 sizeLimit,
                 "UTF-8",
                 new DefaultFileRenamePolicy()
         );
-
-        // 파일 업로드 input name="photo"
-        return multi.getFilesystemName("photo");
     }
 
-    public static void delete(HttpServletRequest request, String folder, String fileName) {
-        if (fileName == null || fileName.trim().equals("")) return;
+    // 파일 삭제
+    public static void deleteFile(HttpServletRequest request,
+                                  String folder,
+                                  String fileName) {
+
+        if (fileName == null || fileName.trim().isEmpty()) return;
 
         String uploadPath = request.getServletContext().getRealPath(folder);
-        File file = new File(uploadPath, fileName);
+        File f = new File(uploadPath, fileName);
 
-        if (file.exists()) {
-            file.delete();
+        if (f.exists()) {
+            f.delete();
         }
     }
 }
