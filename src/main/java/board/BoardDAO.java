@@ -72,6 +72,26 @@ public class BoardDAO {
         return 0;
     }
 
+    // 글 수정 (UPDATE)
+    public int updateBoard(BoardVO vo) {
+        String sql = "UPDATE board SET title = ?, writer = ?, content = ? WHERE id = ?";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, vo.getTitle());
+            pstmt.setString(2, vo.getWriter());
+            pstmt.setString(3, vo.getContent());
+            pstmt.setInt(4, vo.getId());
+
+            return pstmt.executeUpdate(); // 1이면 성공
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0; // 실패
+    }
+
     // 검색 메소드
     public List<BoardVO> searchBoard(String keyword) {
         List<BoardVO> list = new ArrayList<>();
