@@ -1,40 +1,63 @@
+<%@ page import="board.BoardDAO" %>
+<%@ page import="board.BoardVO" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<%
+    request.setCharacterEncoding("UTF-8");
+
+    String idStr = request.getParameter("id");
+    int id = 0;
+    try {
+        id = Integer.parseInt(idStr);
+    } catch (Exception e) {
+        id = 0;
+    }
+
+    BoardDAO dao = new BoardDAO();
+    BoardVO vo = dao.getBoardById(id);
+%>
+
 <jsp:include page="header.jsp"/>
 
-<h2 class="mb-4">Edit Contact (id = <%= id %>)</h2>
+<h2 class="mb-4">Edit Post</h2>
 
-<form action="edit_ok.jsp" method="post" class="row g-3">
-    <input type="hidden" name="id" value="<%= id %>">
+<%
+    if (vo == null) {
+%>
+<div class="alert alert-danger">No post found.</div>
+<a href="list.jsp" class="btn btn-secondary">Back to List</a>
+<%
+} else {
+%>
+<form action="edit_ok.jsp" method="post">
+    <!-- id는 숨겨서 같이 보냄 -->
+    <input type="hidden" name="id" value="<%= vo.getId() %>">
 
-    <div class="col-md-6">
-        <label class="form-label">Name</label>
-        <input type="text" name="name" class="form-control" value="Reynie Muldoon" required>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" id="title" name="title"
+               class="form-control"
+               value="<%= vo.getTitle() %>" required>
     </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Phone</label>
-        <input type="text" name="phone" class="form-control" value="010-1111-2222" required>
+    <div class="mb-3">
+        <label for="writer" class="form-label">Writer</label>
+        <input type="text" id="writer" name="writer"
+               class="form-control"
+               value="<%= vo.getWriter() %>" required>
     </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" value="reynie@benedict.org" required>
+    <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea id="content" name="content" rows="10"
+                  class="form-control" required><%= vo.getContent() %></textarea>
     </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Birthday</label>
-        <input type="date" name="birthday" class="form-control" value="2005-03-15" required>
-    </div>
-
-    <div class="col-md-6">
-        <label class="form-label">Age</label>
-        <input type="number" name="age" class="form-control" value="20" required>
-    </div>
-
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="list.jsp" class="btn btn-secondary">Back to List</a>
-    </div>
-
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="view.jsp?id=<%= vo.getId() %>" class="btn btn-secondary">Cancel</a>
 </form>
+<%
+    }
+%>
 
 <jsp:include page="footer.jsp"/>
