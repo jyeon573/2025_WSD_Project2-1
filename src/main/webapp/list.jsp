@@ -34,6 +34,7 @@
         <th>Writer</th>
         <th>Date</th>
         <th>Hit</th>
+        <th>File</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -53,19 +54,26 @@
         for (BoardVO vo : list) {
     %>
     <tr>
-        <td><%= vo.getId() %>
-        </td>
-        <td><a href="view.jsp?id=<%= vo.getId() %>"><%= vo.getTitle() %>
-        </a></td>
-        </td>
-        <td><%= vo.getWriter() %>
-        </td>
-        <td><%= vo.getRegdate() %>
-        </td>
-        <td><%= vo.getHit() %>
+        <td><%= vo.getId() %></td>
+        <td><a href="view.jsp?id=<%= vo.getId() %>"><%= vo.getTitle() %></a></td>
+        <td><%= vo.getWriter() %></td>
+        <td><%= vo.getRegdate() %></td>
+        <td><%= vo.getHit() %></td>
+        <td>
+            <%
+                String fn = vo.getFileName();
+                if (fn != null && !fn.isEmpty()) {
+            %>
+            📎
+            <%
+                }
+            %>
         </td>
         <td>
-            <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-sm btn-danger">Delete</a>
+            <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-sm btn-danger"
+               onclick="return confirm('Are you sure you want to delete this post?');">
+                Delete
+            </a>
         </td>
     </tr>
     <% } %>
