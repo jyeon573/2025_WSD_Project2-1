@@ -1,8 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <jsp:include page="header.jsp"/>
 
 <h2 class="mb-4">Write New Post</h2>
 
-<form action="write_ok.jsp" method="post" class="row g-3">
+<form action="write_ok.jsp" method="post" enctype="multipart/form-data" class="row g-3">
 
     <div class="col-md-6">
         <label class="form-label">Title</label>
@@ -20,8 +22,8 @@
     </div>
 
     <div class="col-12">
-        <label class="form-label">File name</label>
-        <input type="text" name="fileName" class="form-control" placeholder="image.png">
+        <label class="form-label">Attachment</label>
+        <input type="file" name="uploadFile" class="form-control">
     </div>
 
     <div class="col-12">
