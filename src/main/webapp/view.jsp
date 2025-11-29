@@ -3,6 +3,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%
+    request.setCharacterEncoding("UTF-8");
+
     String idStr = request.getParameter("id");
     int id = 0;
     try {
@@ -31,33 +33,30 @@
 <div class="card">
     <div class="card-body">
 
-        <h4 class="card-title mb-3"><%= vo.getTitle() %>
-        </h4>
+        <h4 class="card-title mb-3"><%= vo.getTitle() %></h4>
 
-        <p><strong>Writer:</strong> <%= vo.getWriter() %>
-        </p>
-        <p><strong>Date:</strong> <%= vo.getRegdate() %>
-        </p>
-        <p><strong>Hit:</strong> <%= vo.getHit() %>
-        </p>
+        <p><strong>Writer:</strong> <%= vo.getWriter() %></p>
+        <p><strong>Date:</strong> <%= vo.getRegdate() %></p>
+        <p><strong>Hit:</strong> <%= vo.getHit() %></p>
 
         <hr>
 
-        <p style="white-space: pre-line;"><%= vo.getContent() %>
-        </p>
+        <p style="white-space: pre-line;"><%= vo.getContent() %></p>
 
     </div>
 </div>
 
 <div class="mt-3">
     <a href="list.jsp" class="btn btn-secondary">Back to List</a>
-    <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-danger">Delete</a>
+    <a href="edit.jsp?id=<%= vo.getId() %>" class="btn btn-primary">Edit</a>
+    <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-danger"
+       onclick="return confirm('Are you sure you want to delete this post?');">
+        Delete
+    </a>
 </div>
 
 <%
     }
 %>
 
-</div>
-</body>
-</html>
+<jsp:include page="footer.jsp"/>
