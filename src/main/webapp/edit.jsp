@@ -28,10 +28,11 @@
 <a href="list.jsp" class="btn btn-secondary">Back to List</a>
 <%
 } else {
+    String currentFile = vo.getFileName();
 %>
-<form action="edit_ok.jsp" method="post">
-    <!-- id는 숨겨서 같이 보냄 -->
+<form action="edit_ok.jsp" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<%= vo.getId() %>">
+    <input type="hidden" name="oldFileName" value="<%= currentFile == null ? "" : currentFile %>">
 
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -54,10 +55,23 @@
     </div>
 
     <div class="mb-3">
-        <label for="fileName" class="form-label">File name</label>
-        <input type="text" id="fileName" name="fileName"
-               class="form-control"
-               value="<%= vo.getFileName() == null ? "" : vo.getFileName() %>">
+        <label class="form-label">Current file</label><br>
+        <%
+            if (currentFile != null && !currentFile.isEmpty()) {
+        %>
+        <a href="upload/<%= currentFile %>" download><%= currentFile %></a>
+        <%
+        } else {
+        %>
+        <span>No file attached</span>
+        <%
+            }
+        %>
+    </div>
+
+    <div class="mb-3">
+        <label for="fileName" class="form-label">New file (optional)</label>
+        <input type="file" id="fileName" name="uploadFile" class="form-control">
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
