@@ -53,6 +53,13 @@
                   class="form-control" required><%= vo.getContent() %></textarea>
     </div>
 
+    <div class="mb-3">
+        <label for="fileName" class="form-label">File name</label>
+        <input type="text" id="fileName" name="fileName"
+               class="form-control"
+               value="<%= vo.getFileName() == null ? "" : vo.getFileName() %>">
+    </div>
+
     <button type="submit" class="btn btn-primary">Save</button>
     <a href="view.jsp?id=<%= vo.getId() %>" class="btn btn-secondary">Cancel</a>
 </form>
