@@ -20,6 +20,11 @@
     </div>
 
     <div class="col-12">
+        <label class="form-label">File name</label>
+        <input type="text" name="fileName" class="form-control" placeholder="image.png">
+    </div>
+
+    <div class="col-12">
         <button type="submit" class="btn btn-primary">Submit</button>
         <a href="list.jsp" class="btn btn-secondary">Back to List</a>
     </div>
