@@ -50,7 +50,8 @@
         <!-- 이미지인 경우 미리보기 -->
         <img src="<%= request.getContextPath() %>/upload/<%= fileName %>"
              alt="attachment"
-             class="img-fluid mt-2">
+             class="img-fluid mt-2"
+             style="max-width: 400px; height: auto;">
         <%
             }
         %>
