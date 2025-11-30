@@ -1,8 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <jsp:include page="header.jsp"/>
 
 <h2 class="mb-4">Write New Post</h2>
 
-<form action="write_ok.jsp" method="post" class="row g-3">
+<form action="write_ok.jsp" method="post"
+      enctype="multipart/form-data" class="row g-3">
 
     <div class="col-md-6">
         <label class="form-label">Title</label>
@@ -17,6 +20,12 @@
     <div class="col-12">
         <label class="form-label">Content</label>
         <textarea name="content" class="form-control" rows="5" required></textarea>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Attachment</label>
+        <!-- FileUpload용 input name -->
+        <input type="file" name="photo" class="form-control">
     </div>
 
     <div class="col-12">

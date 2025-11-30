@@ -3,6 +3,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%
+    request.setCharacterEncoding("UTF-8");
+
     String idStr = request.getParameter("id");
     int id = 0;
     try {
@@ -12,6 +14,11 @@
     }
 
     BoardDAO dao = new BoardDAO();
+
+    // 먼저 조회수 증가
+    dao.increaseHit(id);
+
+    // 그 다음 글 내용을 다시 가져오기
     BoardVO vo = dao.getBoardById(id);
 %>
 
@@ -41,6 +48,25 @@
         <p><strong>Hit:</strong> <%= vo.getHit() %>
         </p>
 
+        <%
+            String fileName = vo.getFileName();
+            if (fileName != null && !fileName.isEmpty()) {
+        %>
+        <p><strong>File:</strong>
+            <a href="<%= request.getContextPath() %>/upload/<%= fileName %>" download>
+                <%= fileName %>
+            </a>
+        </p>
+
+        <!-- 이미지인 경우 미리보기 -->
+        <img src="<%= request.getContextPath() %>/upload/<%= fileName %>"
+             alt="attachment"
+             class="img-fluid mt-2"
+             style="max-width: 400px; height: auto;">
+        <%
+            }
+        %>
+
         <hr>
 
         <p style="white-space: pre-line;"><%= vo.getContent() %>
@@ -51,13 +77,15 @@
 
 <div class="mt-3">
     <a href="list.jsp" class="btn btn-secondary">Back to List</a>
-    <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-danger">Delete</a>
+    <a href="edit.jsp?id=<%= vo.getId() %>" class="btn btn-primary">Edit</a>
+    <a href="delete_ok.jsp?id=<%= vo.getId() %>" class="btn btn-danger"
+       onclick="return confirm('Are you sure you want to delete this post?');">
+        Delete
+    </a>
 </div>
 
 <%
     }
 %>
 
-</div>
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

@@ -8,3 +8,7 @@
 ![img_7.png](Screenshots/img_7.png)
 ![img_8.png](Screenshots/img_8.png)
 ![img_9.png](Screenshots/img_9.png)
+
+1. 파일 업로드 기능 & 조회수 증가 ![img_3.png](Screenshots/week%2013/img_3.png)
+2. 제목/등록일/조회수 정렬 ![img.png](Screenshots/week%2013/img.png)
+3. 제목/내용 keyword 검색 ![img_1.png](Screenshots/week%2013/img_1.png)

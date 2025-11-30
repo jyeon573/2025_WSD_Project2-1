@@ -11,9 +11,15 @@ public class BoardVO {
     private Timestamp regdate;  // 작성 시간
     private int hit;            // 조회수
 
+    // ⬇ 추가된 파일 이름 필드
+    private String fileName;
+
+
     public BoardVO() {
     }
 
+
+    // --- Getter & Setter ---
     public int getId() {
         return id;
     }
@@ -60,5 +66,14 @@ public class BoardVO {
 
     public void setHit(int hit) {
         this.hit = hit;
+    }
+
+
+    // --- fileName getter/setter ---
+    public String getFileName() {
+        return fileName;
+    }
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
