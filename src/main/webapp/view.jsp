@@ -9,9 +9,16 @@
     int id = 0;
     try {
         id = Integer.parseInt(idStr);
-    } catch (Exception e) { id = 0; }
+    } catch (Exception e) {
+        id = 0;
+    }
 
     BoardDAO dao = new BoardDAO();
+
+    // 먼저 조회수 증가
+    dao.increaseHit(id);
+
+    // 그 다음 글 내용을 다시 가져오기
     BoardVO vo = dao.getBoardById(id);
 %>
 
@@ -31,11 +38,15 @@
 <div class="card">
     <div class="card-body">
 
-        <h4 class="card-title mb-3"><%= vo.getTitle() %></h4>
+        <h4 class="card-title mb-3"><%= vo.getTitle() %>
+        </h4>
 
-        <p><strong>Writer:</strong> <%= vo.getWriter() %></p>
-        <p><strong>Date:</strong> <%= vo.getRegdate() %></p>
-        <p><strong>Hit:</strong> <%= vo.getHit() %></p>
+        <p><strong>Writer:</strong> <%= vo.getWriter() %>
+        </p>
+        <p><strong>Date:</strong> <%= vo.getRegdate() %>
+        </p>
+        <p><strong>Hit:</strong> <%= vo.getHit() %>
+        </p>
 
         <%
             String fileName = vo.getFileName();
@@ -58,7 +69,8 @@
 
         <hr>
 
-        <p style="white-space: pre-line;"><%= vo.getContent() %></p>
+        <p style="white-space: pre-line;"><%= vo.getContent() %>
+        </p>
 
     </div>
 </div>

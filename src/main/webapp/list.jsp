@@ -7,39 +7,42 @@
 
 <h2 class="mb-4">Board List</h2>
 
-<!-- Search form -->
-<form method="get" action="list.jsp" class="row g-2 mb-3">
-    <div class="col-auto">
-        <input type="text" name="keyword" class="form-control"
-               placeholder="Search by title or content"
-               value="<%= request.getParameter("keyword") == null ? "" : request.getParameter("keyword") %>">
-    </div>
-
-    <div class="col-auto">
-        <button type="submit" class="btn btn-outline-primary">Search</button>
-    </div>
-
-    <div class="col-auto">
-        <a href="list.jsp" class="btn btn-outline-secondary">Reset</a>
-    </div>
-</form>
-
-<!-- Buttons -->
-<div class="mb-3">
-    <a href="write.jsp" class="btn btn-primary">Write New Post</a>
-    <a href="index.jsp" class="btn btn-secondary">Home</a>
-</div>
 <%
     String keyword = request.getParameter("keyword");
     String sort = request.getParameter("sort");
 %>
 
-<div class="mb-2">
-    <span class="me-2">Sort:</span>
-    <a href="list.jsp?sort=title" class="btn btn-sm btn-outline-secondary">Title</a>
-    <a href="list.jsp?sort=date" class="btn btn-sm btn-outline-secondary">Date</a>
-    <a href="list.jsp?sort=hit" class="btn btn-sm btn-outline-secondary">Hit</a>
+<!-- ===== 버튼 3개 (왼, 중간, 오른쪽) ===== -->
+<div class="row align-items-center mb-4">
+
+    <!-- 왼쪽: New Post -->
+    <div class="col text-start">
+        <a href="write.jsp" class="btn btn-primary">Write New Post</a>
+    </div>
+
+    <!-- 중앙: Sort -->
+    <div class="col text-center">
+        <span class="me-2 fw-bold">Sort:</span>
+        <a href="list.jsp?sort=title" class="btn btn-sm btn-outline-secondary">Title</a>
+        <a href="list.jsp?sort=date" class="btn btn-sm btn-outline-secondary">Date</a>
+        <a href="list.jsp?sort=hit" class="btn btn-sm btn-outline-secondary">Hit</a>
+    </div>
+
+    <!-- 오른쪽: Search -->
+    <div class="col text-end">
+        <form method="get" action="list.jsp" class="d-inline-flex">
+            <input type="text" name="keyword" class="form-control me-2"
+                   placeholder="Search"
+                   value="<%= keyword == null ? "" : keyword %>">
+
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+
+            <a href="list.jsp" class="btn btn-outline-secondary ms-2">Reset</a>
+        </form>
+    </div>
+
 </div>
+<!-- ===== END 버튼 정렬 ===== -->
 
 <!-- Board table -->
 <table class="table table-bordered table-hover">
@@ -58,13 +61,14 @@
     <tbody>
     <%
         BoardDAO dao = new BoardDAO();
-        String keyword = request.getParameter("keyword");
-
         List<BoardVO> list;
+
         if (keyword != null && !keyword.trim().equals("")) {
+            // 검색 중이면 검색 우선
             list = dao.searchBoard(keyword.trim());
         } else {
-            list = dao.getBoardList();
+            // 검색이 아니면 정렬 적용
+            list = dao.getBoardList(sort);
         }
 
         for (BoardVO vo : list) {

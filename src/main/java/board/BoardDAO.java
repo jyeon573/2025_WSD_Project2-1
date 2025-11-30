@@ -211,4 +211,19 @@ public class BoardDAO {
 
         return list;
     }
+
+    // 조회수 증가 메서드
+    public void increaseHit(int id) {
+        String sql = "UPDATE board SET hit = hit + 1 WHERE id = ?";
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
