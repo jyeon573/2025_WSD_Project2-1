@@ -29,6 +29,17 @@
     <a href="write.jsp" class="btn btn-primary">Write New Post</a>
     <a href="index.jsp" class="btn btn-secondary">Home</a>
 </div>
+<%
+    String keyword = request.getParameter("keyword");
+    String sort = request.getParameter("sort");
+%>
+
+<div class="mb-2">
+    <span class="me-2">Sort:</span>
+    <a href="list.jsp?sort=title" class="btn btn-sm btn-outline-secondary">Title</a>
+    <a href="list.jsp?sort=date" class="btn btn-sm btn-outline-secondary">Date</a>
+    <a href="list.jsp?sort=hit" class="btn btn-sm btn-outline-secondary">Hit</a>
+</div>
 
 <!-- Board table -->
 <table class="table table-bordered table-hover">

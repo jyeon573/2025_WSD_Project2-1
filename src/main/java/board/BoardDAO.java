@@ -171,4 +171,44 @@ public class BoardDAO {
         return 0;
     }
 
+    // 정렬 지원 메서드
+    public List<BoardVO> getBoardList(String sort) {
+        List<BoardVO> list = new ArrayList<>();
+
+        String orderBy = "id DESC"; // 기본값
+
+        if ("title".equals(sort)) {
+            orderBy = "title ASC";
+        } else if ("date".equals(sort)) {
+            orderBy = "regdate DESC";
+        } else if ("hit".equals(sort)) {
+            orderBy = "hit DESC";
+        }
+
+        String sql = "SELECT id, title, writer, content, regdate, hit, file_name " +
+                "FROM board ORDER BY " + orderBy;
+
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                BoardVO vo = new BoardVO();
+                vo.setId(rs.getInt("id"));
+                vo.setTitle(rs.getString("title"));
+                vo.setWriter(rs.getString("writer"));
+                vo.setContent(rs.getString("content"));
+                vo.setRegdate(rs.getTimestamp("regdate"));
+                vo.setHit(rs.getInt("hit"));
+                vo.setFileName(rs.getString("file_name"));
+
+                list.add(vo);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }
